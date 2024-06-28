@@ -4,140 +4,56 @@
  * Sample React Native App to demonstrate an incremental Timer
  */
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
-  AppState,
-  Button,
-  Image,
   SafeAreaView,
   StatusBar,
   StyleSheet,
-  Text,
-  View,
+  Image,
+  Text
 } from 'react-native';
+import TimerWithUseState from './src/components/TimerWithUseState';
+import TimerWthUseEffect from './src/components/TimerWithUseEffect';
 
 
 
 function App() {
-
-  // state variable for starting timer
-  const [startTimer, setStartTimer] = useState(false);
-
-  // state variable for stopping timer
-  const [stopTimer, setStopTimer] = useState(false);
-
-  // state variable for stopping timer
-  const [resetTimer, setResetTimer] = useState(false);
-
-
-  // seconds hand
-  const [seconds, setSeconds] = useState(0);
-
-
-
-
-  useEffect(() => {
-    //console.log(`useEffect is called-------> for seconds : ` + seconds);
-    //console.log(`useEffect timerRunning ${timerRunning}`);
-    //console.log(`useEffect startTimer ${startTimer}`);
-    //console.log(`useEffect stopTimer ${stopTimer}`);
-    //console.log(`useEffect resetTimer ${resetTimer}`);
-
-    // const appStateListener = AppState.addEventListener('change', (state) => {
-    //   console.log(`state is ${state}`);
-    // })
-
-
-    if (startTimer && !stopTimer && !resetTimer) {
-      //console.log('CASE 1 seconds are ' + seconds);
-      //interval = setInterval(() => {
-      const interval = setTimeout(() => {
-        //console.log('timeOut called after a second ++++++++++++++++++++++++++++++++++++')
-        setSeconds(seconds + 1);
-        //console.log(seconds)
-      }, 1000);
-      //console.log('timeOut set...for interval : '+interval);
-
-      return () => {
-        //console.log(`clearing interval ${interval}`);
-        //appStateListener.remove();
-        clearInterval(interval)
-      };
-    }
-    else {
-      //console.log('CASE 2 seconds are ' + seconds);
-      if (!startTimer) {
-        if (!stopTimer && resetTimer) {
-          setSeconds(0);
-        }
-      }
-    }
-
-    // return () => {
-    //   appStateListener.remove();
-    // }
-
-  }, [startTimer, stopTimer, resetTimer, seconds]);
-
-
-
 
   return (
     <SafeAreaView style={styles.parent}>
       {/* {console.log(`rendering...for ${seconds} ++++++++++++++++++++++++++++++++++++`)} */}
       <StatusBar barStyle='dark-content' />
 
+
+
+
+
+      {/* 
+      #IshuSharma : This section is Under Development 
+      
+      
       <Image source={require('./src/assets/images/science.png')} style={styles.img} />
-      <Text style={styles.header}> React Native Timer </Text>
+      <Text style={styles.header}> React Native Training </Text>
+      <Text style={styles.description}> Please choose from below options: </Text> */}
 
-      <Text style={styles.timer}> {formatSeconds(seconds)} </Text>
 
-      <View style={{ justifyContent: 'space-evenly', flexDirection: 'column', backgroundColor: 'plum', margin: 20, }}>
-        <Button color='green' title='Start' onPress={() => {
-          console.log('START button clicked...');
-          setStartTimer(true);
-          setStopTimer(false);
-          setResetTimer(false);
-        }} />
 
-        <Button color='red' title='Stop' onPress={() => {
-          console.log('STOP button clicked...')
-          setStartTimer(false);
-          setStopTimer(true);
-          setResetTimer(false);
-        }} />
-        <Button color='orange' title='Reset' onPress={() => {
-          console.log('RESET button clicked...')
-          setStartTimer(false);
-          setStopTimer(false);
-          setResetTimer(true);
-        }} />
-      </View>
+
+      {/* 
+      #IshuSharma : Working Examples - Please enable one component at a time (Navgation will be implemented soon)
+      */}
+
+      {/* A component for timer example using useState hook */}
+      <TimerWithUseState />
+
+
+
+      {/* A component for timer example using useState & useEffect hooks */}
+      {/* <TimerWthUseEffect /> */}
+
 
     </SafeAreaView>
   );
-}
-
-
-// used to format the seconds as hours:minutes:seconds
-function formatSeconds(sec = 0) {
-  //console.log('formatSeconds() is called for sec ' + sec);
-
-  let finalTimerStr = '0h : 0m : 0s';
-
-  if (sec !== 0) {
-    let h = Math.floor(sec / 3600);
-    let m = Math.floor((sec - (h * 3600)) / 60);
-    let s = sec - (h * 3600) - (m * 60);
-
-    finalTimerStr = h.toString().padStart(1, '0') + 'h : ' +
-      m.toString().padStart(1, '0') + 'm : ' +
-      s.toString().padStart(1, '0') + 's';
-
-    //console.log(`s is : ${finalTimerStr}`)
-  }
-
-  return finalTimerStr;
 }
 
 
@@ -156,17 +72,17 @@ const styles = StyleSheet.create({
     color: 'black',
     textAlign: 'center',
   },
-  timer: {
-    marginTop: 40,
-    fontSize: 24,
-    fontWeight: '700',
+  description: {
+    fontSize: 18,
+    alignSelf: 'center',
+    fontWeight: '600',
     color: 'black',
     textAlign: 'center',
   },
   img: {
     marginTop: 140,
     alignSelf: 'center',
-    height: 100, 
+    height: 100,
     width: 100
   }
 });
