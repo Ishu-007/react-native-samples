@@ -12,8 +12,12 @@ import {
   Image,
   Text
 } from 'react-native';
-import TimerWithUseState from './src/components/TimerWithUseState';
 import TimerWthUseEffect from './src/components/TimerWithUseEffect';
+import TimerWithUseStateUseRef from './src/components/TimerWithUseStateUseRef';
+import Network from './src/components/Network';
+import ToDo from './src/components/ToDoList';
+import NavSample from './src/components/NavSample';
+import NavigationDrawer from './src/components/Drawer';
 
 
 
@@ -43,13 +47,23 @@ function App() {
       #IshuSharma : Working Examples - Please enable one component at a time (Navgation will be implemented soon)
       */}
 
-      {/* A component for timer example using useState hook */}
-      <TimerWithUseState />
-
-
+      {/* A component for timer example using useState & useRef hooks */}
+      <TimerWithUseStateUseRef />
 
       {/* A component for timer example using useState & useEffect hooks */}
       {/* <TimerWthUseEffect /> */}
+
+      {/* A component for todo list example using flat list */}
+      {/* <ToDo /> */}
+
+      {/* A component for network operation example using fetch */}
+      {/* <Network /> */}
+
+      {/* A component for screens navigation operation example */}
+      {/* <NavSample /> */}
+
+      {/* A component for navigation drawer example */}
+      {/* <NavigationDrawer /> */}
 
 
     </SafeAreaView>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   AppState,
   Button,
@@ -10,101 +10,80 @@ import {
   View,
 } from 'react-native';
 
-export default function TimerWthUseEffect() {
+
+export default function TimerWithUseStateUseRef() {
+  console.log(`Timer() functional component is called++++++++++++++++++++++++++++++++++++`);
+
+  // this will presetve the interval id
+  const intervalId = useRef(0);
 
   // state variable for starting timer
-  const [startTimer, setStartTimer] = useState(false);
+  const startTimer = useRef(false);
 
   // state variable for stopping timer
-  const [stopTimer, setStopTimer] = useState(false);
+  const stopTimer = useRef(false);
 
   // state variable for stopping timer
-  const [resetTimer, setResetTimer] = useState(false);
-
+  const resetTimer = useRef(true);
 
   // seconds hand
   const [seconds, setSeconds] = useState(0);
 
 
-
-
-  useEffect(() => {
-    //console.log(`useEffect is called-------> for seconds : ` + seconds);
-    //console.log(`useEffect startTimer ${startTimer}`);
-    //console.log(`useEffect stopTimer ${stopTimer}`);
-    //console.log(`useEffect resetTimer ${resetTimer}`);
-
-    // const appStateListener = AppState.addEventListener('change', (state) => {
-    //   console.log(`state is ${state}`);
-    // })
-
-
-    if (startTimer && !stopTimer && !resetTimer) {
-      //console.log('CASE 1 seconds are ' + seconds);
-      const interval = setInterval(() => {
-        setSeconds(s => s + 1);
-      }, 1000);
-
-      return () => { clearInterval(interval) };
-    }
-    else {
-      //console.log('CASE 2 seconds are ' + seconds);
-      if (!startTimer) {
-        if (!stopTimer && resetTimer) {
-          setSeconds(0);
-        }
-      }
-    }
-
-  }, [startTimer, stopTimer, resetTimer]);
-
-
-
-
   return (
     <SafeAreaView style={styles.parent}>
-      {/* {console.log(`rendering...for ${seconds} ++++++++++++++++++++++++++++++++++++`)} */}
       <StatusBar barStyle='dark-content' />
 
       <Image source={require('../assets/images/science.png')} style={styles.img} />
       <Text style={styles.header}> React Native Timer </Text>
-      <Text style={styles.description}> Using useState & useEffect Hooks </Text>
+      <Text style={styles.description}> Using useState & useRef Hooks </Text>
 
       <Text style={styles.timer}> {formatSeconds(seconds)} </Text>
 
       <View style={{ justifyContent: 'space-evenly', flexDirection: 'column', backgroundColor: 'plum', margin: 20, }}>
         <Button color='green' title='Start' onPress={() => {
-          //console.log('START button clicked...');
-          if (!startTimer && (stopTimer || !stopTimer) && (resetTimer || !resetTimer)) {
+          //console.error(`START button clicked...`);
+          if (!startTimer.current &&
+            (stopTimer.current || !stopTimer.current) &&
+            (resetTimer.current || !resetTimer.current)) {
             //console.log('starting TIMER...');
-            setStartTimer(true);
-            setStopTimer(false);
-            setResetTimer(false);
+            startTimer.current = true;
+            stopTimer.current = false;
+            resetTimer.current = false;
 
+            let interval = setInterval(() => {
+              setSeconds(s => s + 1);
+              aValue = !aValue;
+            }, 1000);
+            intervalId.current = interval;
           }
           //else console.log('TIMER started already...');
         }} />
 
         <Button color='red' title='Stop' onPress={() => {
-          //console.log('STOP button clicked...')
-          if (startTimer && !stopTimer && (resetTimer || !resetTimer)) {
+          //console.error('STOP button clicked...')
+          if (startTimer.current && !stopTimer.current && (resetTimer.current || !resetTimer.current)) {
             //console.log('stopping TIMER...');
-            setStartTimer(false);
-            setStopTimer(true);
-            setResetTimer(false);
+            clearInterval(intervalId.current);
+            startTimer.current = false;
+            stopTimer.current = true;
+            resetTimer.current = false;
           }
           //else console.log('TIMER stopeed already...');
 
         }} />
         <Button color='orange' title='Reset' onPress={() => {
-          //console.log('RESET button clicked...')
-          if ((startTimer || !startTimer) && (stopTimer || !stopTimer) && !resetTimer) {
+          //console.error('RESET button clicked...')
+          if ((startTimer.current || !startTimer.current) && (stopTimer.current || !stopTimer.current) && !resetTimer.current) {
             //console.log('resetting TIMER...');
-            setStartTimer(false);
-            setStopTimer(false);
-            setResetTimer(true);
+            clearInterval(intervalId.current);
+            setSeconds(0)
+            startTimer.current = false;
+            stopTimer.current = false;
+            resetTimer.current = true;
           }
           //else console.log('TIMER reset already...');
+
         }} />
       </View>
 

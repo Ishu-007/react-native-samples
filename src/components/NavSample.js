@@ -55,7 +55,7 @@ const Screen_1 = ({ navigation }) => {
     )
 }
 
-const Screen_2 = ({navigation}) => {
+const Screen_2 = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.basescreen}>
             <Button title="Go to Screen_1" onPress={() => {
@@ -76,7 +76,7 @@ const Screen_2 = ({navigation}) => {
     )
 }
 
-const Screen_3 = ({navigation}) => {
+const Screen_3 = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.basescreen}>
             <Button title="Go to Screen_1" onPress={() => {
@@ -97,7 +97,7 @@ const Screen_3 = ({navigation}) => {
     )
 }
 
-const Screen_4 = ({navigation}) => {
+const Screen_4 = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.basescreen}>
             <Button title="Go to Screen_1" onPress={() => {

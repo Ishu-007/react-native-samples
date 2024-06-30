@@ -40,7 +40,7 @@ export default function Network() {
                     <View style={styles.loadingContainer}>
                         <ActivityIndicator size='large' color='orange' />
                         <Text>Loading...</Text>
-                    </View> 
+                    </View>
                     :
                     <FlatList
                         data={postList}
